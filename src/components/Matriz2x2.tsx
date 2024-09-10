@@ -10,10 +10,11 @@ interface Matrix2x2Props {
 
 const Matrix2x2: React.FC<Matrix2x2Props> = ({ matrixX, matrixY, onChangeX, onChangeY, onCalculate }) => {
   return (
-    <div>
-      <h3>Matriz 2x2</h3>
+    <div className='container-card bg-white-box'>
+      <p className='card-title'>Matriz 2x2</p>
       <div>
-        <h4>X</h4>
+        <p className='card-title'>X</p>
+        {/*aqui tengo duda */}
         {matrixX.map((row, i) => (
           <div key={i}>
             {row.map((_, j) => (
@@ -28,7 +29,8 @@ const Matrix2x2: React.FC<Matrix2x2Props> = ({ matrixX, matrixY, onChangeX, onCh
         ))}
       </div>
       <div>
-        <h4>Y</h4>
+        <p className='card-title'>Y</p>
+        {/*aqui tengo duda */}
         {matrixY.map((row, i) => (
           <div key={i}>
             {row.map((_, j) => (

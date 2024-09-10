@@ -10,10 +10,10 @@ interface Matrix3x3Props {
 
 const Matrix3x3: React.FC<Matrix3x3Props> = ({ matrixX, matrixY, onChangeX, onChangeY, onCalculate }) => {
   return (
-    <div>
-      <h3>Matriz 3x3</h3>
+    <div className='container-card bg-yellow-box'>
+      <p className='card-title'>Matriz 3x3</p>
       <div>
-        <h4>X</h4>
+        <p className='card-title'>X</p>
         {matrixX.map((row, i) => (
           <div key={i}>
             {row.map((_, j) => (
@@ -28,7 +28,7 @@ const Matrix3x3: React.FC<Matrix3x3Props> = ({ matrixX, matrixY, onChangeX, onCh
         ))}
       </div>
       <div>
-        <h4>Y</h4>
+        <p className='card-title'>Y</p>
         {matrixY.map((row, i) => (
           <div key={i}>
             {row.map((_, j) => (

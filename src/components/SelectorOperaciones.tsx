@@ -1,4 +1,3 @@
-// OperationSelector.tsx
 import React, { ChangeEvent } from 'react';
 
 interface OperationSelectorProps {

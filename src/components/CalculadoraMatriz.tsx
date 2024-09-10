@@ -190,25 +190,23 @@ const MatrixCalculator: React.FC = () => {
             </div>
 
             <div className="card">
-                <div className="container-card bg-white-box">
             <Matrix2x2 
                 matrixX={matrix2x2X} 
                 matrixY={matrix2x2Y} 
                 onChangeX={handleMatrixChange2x2X} 
                 onChangeY={handleMatrixChange2x2Y} 
                 onCalculate={calculateDeterminant2x2} 
-            /></div>
+            />
             </div>
             
             <div className="card">
-                <div className="container-card bg-yellow-box">
             <Matrix3x3 
                 matrixX={matrix3x3X} 
                 matrixY={matrix3x3Y} 
                 onChangeX={handleMatrixChange3x3X} 
                 onChangeY={handleMatrixChange3x3Y} 
                 onCalculate={calculateDeterminant3x3} 
-            /></div>
+            />
             </div>
 
             <div className="card">
@@ -226,7 +224,7 @@ const MatrixCalculator: React.FC = () => {
 
             {resultMatrix && (
                 <div>
-                    <h3>Matriz Resultante:</h3>
+                    <p className='card-title'>Matriz Resultante:</p>
                     {resultMatrix.map((row, i) => (
                         <div key={i}>
                             {row.map((val, j) => (
