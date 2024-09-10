@@ -1,10 +1,10 @@
 import React from 'react';
-import MatrixCalculator from './components/CalculadoraMatriz';
+import CalculateMatriz from './components/CalculadoraMatriz';
 
 const App: React.FC = () => {
     return (
         <div className="App">
-            <MatrixCalculator />
+            <CalculateMatriz/>
         </div>
     );
 }

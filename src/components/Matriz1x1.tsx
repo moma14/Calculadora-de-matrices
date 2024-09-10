@@ -19,6 +19,8 @@ const Matrix1x1: React.FC<Matrix1x1Props> = ({ valueX, valueY, onChangeX, onChan
       <p className="card-title">Y</p>
       <p className="card-description">
       <input type="number" value={valueY} onChange={onChangeY} />
+      <br></br>
+      <br></br>
       <button onClick={onCalculate}>Calcular Determinante 1x1</button>
       </p>
     </div>

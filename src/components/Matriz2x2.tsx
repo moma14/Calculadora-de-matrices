@@ -44,6 +44,8 @@ const Matrix2x2: React.FC<Matrix2x2Props> = ({ matrixX, matrixY, onChangeX, onCh
           </div>
         ))}
       </div>
+      <br></br>
+      <br></br>
       <button onClick={onCalculate}>Calcular Determinante 2x2</button>
     </div>
   );

@@ -1,5 +1,5 @@
 body {
-    background-color: gray;
+    background-color: grey;
 }
 .container {
     width: 1200px !important;
@@ -51,6 +51,7 @@ body {
 }
 .container-card {
     position: relative;
+    text-align: center;
     border: 2px solid transparent;
     background: linear-gradient(71deg, #e3e3e4, #1a171c, #fafafa);
     background-clip: padding-box;
@@ -102,6 +103,11 @@ body {
     max-width: 470px;
 }
 input{
-    max-width: 10%;
-    
+    max-width: 10%;   
+}
+span{
+    color: white;
+}
+.result{
+    color: white;
 }

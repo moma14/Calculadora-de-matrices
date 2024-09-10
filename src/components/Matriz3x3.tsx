@@ -42,6 +42,8 @@ const Matrix3x3: React.FC<Matrix3x3Props> = ({ matrixX, matrixY, onChangeX, onCh
           </div>
         ))}
       </div>
+      <br></br>
+      <br></br>
       <button onClick={onCalculate}>Calcular Determinante 3x3</button>
     </div>
   );

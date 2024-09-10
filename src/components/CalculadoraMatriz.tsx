@@ -5,6 +5,7 @@ import Matrix3x3 from './Matriz3x3';
 import OperationSelector from './SelectorOperaciones';
 import Button from '../MatriZod'; // Asegúrate de que la ruta sea correcta
 import './MatrixCalculator.css'
+import './Button.css'
 
 const MatrixCalculator: React.FC = () => {
     const [matrix1x1X, setMatrix1x1X] = useState<number>(0);
@@ -215,12 +216,18 @@ const MatrixCalculator: React.FC = () => {
                 operation={operation} 
                 onChange={handleOperationChange} 
             />
+                  <br></br>
+                  <br></br>
 
-            <Button text="Restablecer Vista" onClick={resetView} />
+            <Button text="Restablecer Matrices" onClick={resetView} />
+            <br></br>
+            <br></br>
 
-            {determinant !== null && <div>Determinante: {determinant}</div>}
+            {determinant !== null && <div className='result'>Determinante: {determinant}</div>}
+            <br></br>
+            <br></br>
 
-            {result1x1 !== null && <div>Resultado 1x1: {result1x1}</div>}
+            {result1x1 !== null && <div className='result'>Resultado 1x1: {result1x1}</div>}
 
             {resultMatrix && (
                 <div>
