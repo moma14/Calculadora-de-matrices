@@ -21,6 +21,7 @@ const Matrix2x2: React.FC<Matrix2x2Props> = ({ matrixX, matrixY, onChangeX, onCh
               <input
                 key={j}
                 type="number"
+                aria-label={`Matriz 2x2 X [${i}][${j}]`}
                 value={matrixX[i][j]}
                 onChange={(e) => onChangeX(e, i, j)}
               />
@@ -37,6 +38,7 @@ const Matrix2x2: React.FC<Matrix2x2Props> = ({ matrixX, matrixY, onChangeX, onCh
               <input
                 key={j}
                 type="number"
+                aria-label={`Matriz 2x2 Y [${i}][${j}]`}
                 value={matrixY[i][j]}
                 onChange={(e) => onChangeY(e, i, j)}
               />

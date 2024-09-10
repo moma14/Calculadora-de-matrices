@@ -14,11 +14,11 @@ const Matrix1x1: React.FC<Matrix1x1Props> = ({ valueX, valueY, onChangeX, onChan
       <p className="card-title">Matriz 1x1</p>
       <p className="card-title">X</p>
       <p className="card-description">
-      <input type="number" value={valueX} onChange={onChangeX} />
+      <input type="number" value={valueX} onChange={onChangeX} aria-label="Matriz 1x1 X" />
       </p>
       <p className="card-title">Y</p>
       <p className="card-description">
-      <input type="number" value={valueY} onChange={onChangeY} />
+      <input type="number" value={valueY} onChange={onChangeY} aria-label="Matriz 1x1 Y"/>
       <br></br>
       <br></br>
       <button onClick={onCalculate}>Calcular Determinante 1x1</button>

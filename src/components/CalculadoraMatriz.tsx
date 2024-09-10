@@ -4,7 +4,7 @@ import Matrix2x2 from './Matriz2x2';
 import Matrix3x3 from './Matriz3x3';
 import OperationSelector from './SelectorOperaciones';
 import Button from '../MatriZod'; // Asegúrate de que la ruta sea correcta
-import './MatrixCalculator.css'
+import './CalculadoraMatriz.css'
 import './Button.css'
 
 const MatrixCalculator: React.FC = () => {
@@ -15,7 +15,8 @@ const MatrixCalculator: React.FC = () => {
     const [matrix3x3X, setMatrix3x3X] = useState<number[][]>([[0, 0, 0], [0, 0, 0], [0, 0, 0]]);
     const [matrix3x3Y, setMatrix3x3Y] = useState<number[][]>([[0, 0, 0], [0, 0, 0], [0, 0, 0]]);
     const [determinant, setDeterminant] = useState<number | null>(null);
-    const [resultMatrix, setResultMatrix] = useState<number[][] | null>(null);
+    const [resultMatrix2x2, setResultMatrix2x2] = useState<number[][] | null>(null);
+    const [resultMatrix3x3, setResultMatrix3x3] = useState<number[][] | null>(null);
     const [result1x1, setResult1x1] = useState<number | null>(null); // Resultado de la operación 1x1
     const [operation, setOperation] = useState<string>('add');
 
@@ -87,7 +88,7 @@ const MatrixCalculator: React.FC = () => {
         setDeterminant(null); // Limpiar el valor del determinante si se hace una operación
     };
 
-    // Operaciones de suma, resta y multiplicación para matrices 2x2 y 3x3
+    // Operaciones de suma, resta y multiplicación para matrices 2x2
     const performOperation2x2 = () => {
         let result: number[][] = [[0, 0], [0, 0]];
 
@@ -110,10 +111,11 @@ const MatrixCalculator: React.FC = () => {
             }
         }
 
-        setResultMatrix(result);
+        setResultMatrix2x2(result);
         setDeterminant(null);
     };
 
+    // Operaciones de suma, resta y multiplicación para matrices 3x3
     const performOperation3x3 = () => {
         let result: number[][] = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
 
@@ -138,7 +140,7 @@ const MatrixCalculator: React.FC = () => {
             }
         }
 
-        setResultMatrix(result);
+        setResultMatrix3x3(result);
         setDeterminant(null);
     };
 
@@ -170,14 +172,15 @@ const MatrixCalculator: React.FC = () => {
         setMatrix3x3X([[0, 0, 0], [0, 0, 0], [0, 0, 0]]);
         setMatrix3x3Y([[0, 0, 0], [0, 0, 0], [0, 0, 0]]);
         setDeterminant(null);
-        setResultMatrix(null);
+        setResultMatrix2x2(null);
+        setResultMatrix3x3(null);
         setResult1x1(null);
         setOperation('add');
     };
 
     return (
         <div className="container">
-            <p className="container-title">Calculadora de matrices</p>
+         <p className='container-title'>Calculadora de matrices</p>
 
             <div className="gradient-cards">
             <div className="card">             
@@ -229,10 +232,25 @@ const MatrixCalculator: React.FC = () => {
 
             {result1x1 !== null && <div className='result'>Resultado 1x1: {result1x1}</div>}
 
-            {resultMatrix && (
+            {resultMatrix2x2 && (
                 <div>
-                    <p className='card-title'>Matriz Resultante:</p>
-                    {resultMatrix.map((row, i) => (
+                    <p className='card-title'>Matriz Resultante 2x2:</p>
+                    {resultMatrix2x2.map((row, i) => (
+                        <div key={i}>
+                            {row.map((val, j) => (
+                                <span key={j} style={{ marginRight: '10px' }}>
+                                    {val}
+                                </span>
+                            ))}
+                        </div>
+                    ))}
+                </div>
+            )}
+
+            {resultMatrix3x3 && (
+                <div>
+                    <p className='card-title'>Matriz Resultante 3x3:</p>
+                    {resultMatrix3x3.map((row, i) => (
                         <div key={i}>
                             {row.map((val, j) => (
                                 <span key={j} style={{ marginRight: '10px' }}>

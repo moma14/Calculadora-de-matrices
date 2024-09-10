@@ -20,6 +20,7 @@ const Matrix3x3: React.FC<Matrix3x3Props> = ({ matrixX, matrixY, onChangeX, onCh
               <input
                 key={j}
                 type="number"
+                aria-label={`Matriz 3x3 X [${i}][${j}]`}
                 value={matrixX[i][j]}
                 onChange={(e) => onChangeX(e, i, j)}
               />
@@ -35,6 +36,7 @@ const Matrix3x3: React.FC<Matrix3x3Props> = ({ matrixX, matrixY, onChangeX, onCh
               <input
                 key={j}
                 type="number"
+                aria-label={`Matriz 3x3 Y [${i}][${j}]`}
                 value={matrixY[i][j]}
                 onChange={(e) => onChangeY(e, i, j)}
               />
