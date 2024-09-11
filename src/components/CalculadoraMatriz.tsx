@@ -320,7 +320,10 @@ const MatrixCalculator: React.FC = () => {
 
             <div className="card">
                 <div className="container-card bg-blue-box">
-           
+            <OperationSelector 
+                operation={operation} 
+                onChange={handleOperationChange} 
+            />
 
             {/**con este boton se limpian todas las matrices*/ }
             <br /><br />
@@ -347,18 +350,14 @@ const MatrixCalculator: React.FC = () => {
             <br></br>
             <br></br>
             <Button text="Calcular Inversa 3x3 Y" onClick={() => calculateInverse3x3('Y')} disabled={!isMatrixFilled(matrix3x3Y)} />
-            <br></br>
-            <br></br>
-            <OperationSelector 
-                operation={operation} 
-                onChange={handleOperationChange} 
-            />
 
             {/*aqui se imprimen los resultados */}
             <br /><br />
             {determinant !== null && <div className='result'>Determinante: {determinant}</div>}
             <br></br>
-            {result1x1 !== null && <div className='result'>Resultado Operacion 1x1: {result1x1}</div>}
+            <br></br>
+
+            {result1x1 !== null && <div className='result'>Resultado 1x1: {result1x1}</div>}
 
             {resultMatrix2x2 && (
                 <div>
