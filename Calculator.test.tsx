@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, test, expect } from 'vitest';
-import MatrixCalculator from './src/components/CalculadoraMatriz'; // Asegúrate de que la ruta sea correcta
-import React from 'react';  // Añade esta línea
+import MatrixCalculator from './src/components/CalculadoraMatriz'; 
+import React from 'react';  
 
 describe('MatrixCalculator', () => {
     
@@ -21,7 +21,7 @@ describe('MatrixCalculator', () => {
         const inputX = screen.getByLabelText('Matriz 1x1 X') as HTMLInputElement;
         const inputY = screen.getByLabelText('Matriz 1x1 Y') as HTMLInputElement;
 
-        // Cambiamos los valores de los inputs
+        // aqui se cambian los valores de los inputs
         fireEvent.change(inputX, { target: { value: '5' } });
         fireEvent.change(inputY, { target: { value: '3' } });
 

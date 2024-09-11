@@ -1,18 +1,22 @@
 import React, { ChangeEvent } from 'react';
 
+
 interface Matrix2x2Props {
-  matrixX: number[][];
-  matrixY?: number[][];  // matrixY ahora es opcional
-  onChangeX: (e: ChangeEvent<HTMLInputElement>, i: number, j: number) => void;
-  onChangeY?: (e: ChangeEvent<HTMLInputElement>, i: number, j: number) => void;  // onChangeY también opcional
-  onCalculate: () => void;
-  hideMatrixY?: boolean;  // Añadimos esta prop para ocultar Y si es necesario
+  matrixX: number[][]; // Matriz 2x2 para los valores de X
+  matrixY?: number[][]; // Matriz 2x2 para los valores de Y
+  onChangeX: (e: ChangeEvent<HTMLInputElement>, i: number, j: number) => void; // se ejecuta cuando un valor en la matriz X cambia
+  onChangeY?: (e: ChangeEvent<HTMLInputElement>, i: number, j: number) => void; // se ejecuta cuando un valor en la matriz Y cambia
+  onCalculate: () => void; // esta funcion se ejecuta cuando se hace clic en el botón para calcular
+  hideMatrixY?: boolean; 
 }
 
+// Definimos un componente funcional llamado 'Matrix2x2' que acepta las propiedades definidas en 'Matrix2x2Props'
 const Matrix2x2: React.FC<Matrix2x2Props> = ({ matrixX, matrixY, onChangeX, onChangeY, onCalculate, hideMatrixY }) => {
   return (
     <div className='container-card bg-white-box'>
       <p className='card-title'>Matriz 2x2</p>
+      
+      {/* aqui va el contenido de la matriz X de 2x2*/}
       <div>
         <p className='card-title'>X</p>
         {matrixX.map((row, i) => (
@@ -30,7 +34,7 @@ const Matrix2x2: React.FC<Matrix2x2Props> = ({ matrixX, matrixY, onChangeX, onCh
         ))}
       </div>
 
-      {/* Renderiza la matriz Y solo si hideMatrixY es falso */}
+      {/* aqui va el contenido de la matriz Y de 2x2*/}
       {!hideMatrixY && matrixY && (
         <div>
           <p className='card-title'>Y</p>
@@ -51,6 +55,7 @@ const Matrix2x2: React.FC<Matrix2x2Props> = ({ matrixX, matrixY, onChangeX, onCh
       )}
 
       <br />
+      {/* este boton es para calcular el determinante de la matriz */}
       <button onClick={onCalculate}>Calcular Determinante 2x2</button>
     </div>
   );

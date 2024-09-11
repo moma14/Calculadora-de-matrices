@@ -7,6 +7,8 @@ interface OperationSelectorProps {
 }
 
 const OperationSelector: React.FC<OperationSelectorProps> = ({ operation, onChange }) => {
+  {/* aqui va todo el contenido que hay en el select que usa un children
+    para envolverlo*/}
   return (
     <Card>
       <select value={operation} onChange={onChange}>

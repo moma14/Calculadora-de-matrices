@@ -3,7 +3,7 @@ import Matrix1x1 from './Matriz1x1';
 import Matrix2x2 from './Matriz2x2';
 import Matrix3x3 from './Matriz3x3';
 import OperationSelector from './SelectorOperaciones';
-import Button from '../MatriZod'; // Asegúrate de que la ruta sea correcta
+import Button from '../MatriZod'; 
 import './CalculadoraMatriz.css';
 import './Button.css';
 
@@ -21,7 +21,7 @@ const MatrixCalculator: React.FC = () => {
     const [lastInverse, setLastInverse] = useState<string | null>(null); // Para rastrear la última inversa calculada
     const [operation, setOperation] = useState<string>('add');
 
-    // Funciones de cálculo de determinantes
+    // estas son las funciones para el cálculo de determinantes
     const calculateDeterminant1x1 = () => setDeterminant(matrix1x1X);
     
     const calculateDeterminant2x2 = () => {
@@ -35,17 +35,30 @@ const MatrixCalculator: React.FC = () => {
         const [g, h, i] = matrix3x3X[2];
         const det = a * (e * i - f * h) - b * (d * i - f * g) + c * (d * h - e * g);
         setDeterminant(det);
-        return det; // Return the determinant
+        return det; // retorna el determinante
     };
     
-    // Función para verificar si todos los valores de una matriz son 0
+    // esta función  es para verificar si todos los valores de una matriz son 0
     const isMatrixFilled = (matrix: number[][]) => {
         return matrix.some(row => row.some(value => value !== 0));
     };
+    const calculateInverse1x1 = (source: 'X' | 'Y') => {
+        const value = source === 'X' ? matrix1x1X : matrix1x1Y;
+    
+        if (value === 0) {
+            alert("La matriz 1x1 no tiene inversa (el valor es 0)");
+            return;
+        }
+    
+        const result = 1 / value;
+        setResult1x1(result);
+        setLastInverse(source);
+    };
+    
 
-    // Función para calcular la inversa de una matriz 2x2
+    // esta funcion es para calcular la inversa de una matriz 2x2
     const calculateInverse2x2 = (source: 'X' | 'Y') => {
-        // Limpiar el resultado de la otra matriz si fue calculada previamente
+        // Limpia el resultado de la otra matriz si fue calculada previamente
         if (source === 'X' && lastInverse !== 'X') {
             setResultMatrix2x2(null);
         }
@@ -79,7 +92,8 @@ const MatrixCalculator: React.FC = () => {
 
     // Función para calcular la inversa de una matriz 3x3 al presionar el botón "Calcular Inversa"
     const calculateInverse3x3 = (source: 'X' | 'Y') => {
-        // Limpiar el resultado de la otra matriz si fue calculada previamente
+        // aqui se limpia la matriz que calculaste anteriormente 
+        // para que mueste o cambie el resultado al hacer otro calculo
         if (source === 'X' && lastInverse !== 'X') {
             setResultMatrix3x3(null);
         }
@@ -89,10 +103,10 @@ const MatrixCalculator: React.FC = () => {
 
         const det = source === 'X'
             ? calculateDeterminant3x3()
-            : matrix3x3Y[0][0] * matrix3x3Y[1][1] * matrix3x3Y[2][2] - // Implementa si es necesario para 'Y'
+            : matrix3x3Y[0][0] * matrix3x3Y[1][1] * matrix3x3Y[2][2] - // si es necesario se implementa para 'Y'
               // Tu propio cálculo para 'Y'
               0;
-
+              //este if es para que si la matriz tiene un cero salte una alerta que diga que no tiene inversa
         if (det === 0) {
             alert("La matriz no tiene inversa (determinante es 0)");
             return;
@@ -125,7 +139,7 @@ const MatrixCalculator: React.FC = () => {
 
 
 
-    // Funciones de manejo de matrices
+    // aqui se usan las funciones de manejo de matrices
     const handleInputChange1x1X = (e: ChangeEvent<HTMLInputElement>) => setMatrix1x1X(parseFloat(e.target.value));
     const handleInputChange1x1Y = (e: ChangeEvent<HTMLInputElement>) => setMatrix1x1Y(parseFloat(e.target.value));
 
@@ -174,7 +188,7 @@ const MatrixCalculator: React.FC = () => {
         }
 
         setResult1x1(result);
-        setDeterminant(null); // Limpiar el valor del determinante si se hace una operación
+        setDeterminant(null); // aqui se limpia el valor del determinante si se hace una operación
     };
 
     // Operaciones de suma, resta y multiplicación para matrices 2x2
@@ -204,7 +218,7 @@ const MatrixCalculator: React.FC = () => {
         setDeterminant(null);
     };
 
-    // Operaciones de suma, resta y multiplicación para matrices 3x3
+    // aqui se hacen las operaciones de suma, resta y multiplicación para las matrices 3x3
     const performOperation3x3 = () => {
         let result: number[][] = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
 
@@ -233,7 +247,7 @@ const MatrixCalculator: React.FC = () => {
         setDeterminant(null);
     };
 
-    // useEffect para recalcular operaciones al cambiar las matrices o la operación
+    // estos useEffect es para recalcular operaciones al cambiar las matrices o la operación
     useEffect(() => {
         if (operation === 'add' || operation === 'subtract' || operation === 'multiply') {
             performOperation1x1();
@@ -253,7 +267,7 @@ const MatrixCalculator: React.FC = () => {
     }, [matrix3x3X, matrix3x3Y, operation]);
     
 
-    // Reset function
+    // esta funcion es para limpiar todas las matrices
     const resetView = () => {
         setMatrix1x1X(0);
         setMatrix1x1Y(0);
@@ -268,6 +282,7 @@ const MatrixCalculator: React.FC = () => {
         setOperation('add');
     };
 
+    //todo lo que contiene mi vista, incluyendo las matrices y los resultados
     return (
         <div className="container">
             <p className="container-title">Calculadora de matrices</p>
@@ -309,12 +324,22 @@ const MatrixCalculator: React.FC = () => {
                 operation={operation} 
                 onChange={handleOperationChange} 
             />
+
+            {/**con este boton se limpian todas las matrices*/ }
             <br /><br />
             <Button text="Restablecer Matrices" onClick={resetView} />
             <br /><br />
 
+            {/*estos botones son para calcular las inversas de las matrices
+            y si por ejemplo se apreta un boton para calcular la inversa y luego otro boton para 
+            calcular otra inversa el primer resultado se borra para que el mueve se ponga*/}
             <br /><br />
-
+            <Button text="Calcular Inversa 1x1 X" onClick={() => calculateInverse1x1('X')} disabled={matrix1x1X === 0} />
+            <br></br>
+            <br></br>
+            <Button text="Calcular Inversa 1x1 Y" onClick={() => calculateInverse1x1('Y')} disabled={matrix1x1Y === 0} />
+            <br></br>
+            <br></br>
             <Button text="Calcular Inversa 2x2 X" onClick={() => calculateInverse2x2('X')} disabled={!isMatrixFilled(matrix2x2X)} />
             <br></br>
             <br></br>
@@ -325,7 +350,8 @@ const MatrixCalculator: React.FC = () => {
             <br></br>
             <br></br>
             <Button text="Calcular Inversa 3x3 Y" onClick={() => calculateInverse3x3('Y')} disabled={!isMatrixFilled(matrix3x3Y)} />
-            
+
+            {/*aqui se imprimen los resultados */}
             <br /><br />
             {determinant !== null && <div className='result'>Determinante: {determinant}</div>}
             <br></br>
