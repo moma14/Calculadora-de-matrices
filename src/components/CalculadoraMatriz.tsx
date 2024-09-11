@@ -18,8 +18,41 @@ const MatrixCalculator: React.FC = () => {
     const [resultMatrix2x2, setResultMatrix2x2] = useState<number[][] | null>(null);
     const [resultMatrix3x3, setResultMatrix3x3] = useState<number[][] | null>(null);
     const [result1x1, setResult1x1] = useState<number | null>(null); // Resultado de la operación 1x1
+    const [fractionMatrix2x2, setFractionMatrix2x2] = useState<string[][] | null>(null);
+    const [fractionMatrix3x3, setFractionMatrix3x3] = useState<string[][] | null>(null);
+    const [fraction1x1, setFraction1x1] = useState<string | null>(null);
     const [lastInverse, setLastInverse] = useState<string | null>(null); // Para rastrear la última inversa calculada
     const [operation, setOperation] = useState<string>('add');
+
+    // esta funcion es para convertir un número decimal a fracción
+    const decimalToFraction = (decimal: number): string => {
+        const tolerance = 1.0E-6;
+        let numerator = 1;
+        let denominator = 1;
+        let fraction = decimal;
+        while (Math.abs(fraction - Math.round(fraction)) > tolerance) {
+            denominator++;
+            fraction = decimal * denominator;
+        }
+        numerator = Math.round(fraction);
+        return `${numerator}/${denominator}`;
+    };
+
+    // esta funcion es para convertir las matrices a fracciones
+    const convertToFraction = () => {
+        if (resultMatrix2x2) {
+            const fractionMatrix2x2 = resultMatrix2x2.map(row => row.map(val => decimalToFraction(val)));
+            setFractionMatrix2x2(fractionMatrix2x2);
+        }
+        if (resultMatrix3x3) {
+            const fractionMatrix3x3 = resultMatrix3x3.map(row => row.map(val => decimalToFraction(val)));
+            setFractionMatrix3x3(fractionMatrix3x3);
+        }
+        if (result1x1 !== null) {
+            const fraction1x1 = decimalToFraction(result1x1);
+            setFraction1x1(fraction1x1);
+        }
+    };
 
     // estas son las funciones para el cálculo de determinantes
     const calculateDeterminant1x1 = () => setDeterminant(matrix1x1X);
@@ -90,7 +123,7 @@ const MatrixCalculator: React.FC = () => {
         setLastInverse(source);
     };
 
-    // Función para calcular la inversa de una matriz 3x3 al presionar el botón "Calcular Inversa"
+    // esta función es para calcular la inversa de una matriz 3x3 al presionar el botón "Calcular Inversa"
     const calculateInverse3x3 = (source: 'X' | 'Y') => {
         // aqui se limpia la matriz que calculaste anteriormente 
         // para que mueste o cambie el resultado al hacer otro calculo
@@ -330,7 +363,7 @@ const MatrixCalculator: React.FC = () => {
             <Button text="Restablecer Matrices" onClick={resetView} />
             <br /><br />
 
-            {/*estos botones son para calcular las inversas de las matrices
+            {/*estos botones son para calcular las inversas de las matrices y sus fracciones
             y si por ejemplo se apreta un boton para calcular la inversa y luego otro boton para 
             calcular otra inversa el primer resultado se borra para que el mueve se ponga*/}
             <br /><br />
@@ -350,14 +383,25 @@ const MatrixCalculator: React.FC = () => {
             <br></br>
             <br></br>
             <Button text="Calcular Inversa 3x3 Y" onClick={() => calculateInverse3x3('Y')} disabled={!isMatrixFilled(matrix3x3Y)} />
+            <br /><br />
+            <Button text="Convertir a Fracciones las inversas  1X1" onClick={convertToFraction} />
+            <br /><br />
+            <Button text="Convertir a Fracciones las inversas 2x2 y 3x3" onClick={convertToFraction} />
 
             {/*aqui se imprimen los resultados */}
             <br /><br />
             {determinant !== null && <div className='result'>Determinante: {determinant}</div>}
             <br></br>
             <br></br>
+            {result1x1 !== null && (
+                <div className='result'>
+                    Resultado 1x1: {result1x1}
+                    <br></br>
+                    <br></br>
+                    {fraction1x1 && <div>Resultado Fracción 1x1: {fraction1x1}</div>}
+                </div>
+            )}
 
-            {result1x1 !== null && <div className='result'>Resultado 1x1: {result1x1}</div>}
 
             {resultMatrix2x2 && (
                 <div>
@@ -369,10 +413,22 @@ const MatrixCalculator: React.FC = () => {
                             ))}
                         </div>
                     ))}
+                    {fractionMatrix2x2 && (
+                        <div>
+                            <p className='card-title'>Matriz Resultante 2x2 (Fracción):</p>
+                            {fractionMatrix2x2.map((row, i) => (
+                                <div key={i}>
+                                    {row.map((val, j) => (
+                                        <span key={j} style={{ marginRight: '10px' }}>{val}</span>
+                                    ))}
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
             )}
 
-            {resultMatrix3x3 && (
+                {resultMatrix3x3 && (
                 <div>
                     <p className='card-title'>Matriz Resultante 3x3:</p>
                     {resultMatrix3x3.map((row, i) => (
@@ -382,6 +438,18 @@ const MatrixCalculator: React.FC = () => {
                             ))}
                         </div>
                     ))}
+                    {fractionMatrix3x3 && (
+                        <div>
+                            <p className='card-title'>Matriz Resultante 3x3 (Fracción):</p>
+                            {fractionMatrix3x3.map((row, i) => (
+                                <div key={i}>
+                                    {row.map((val, j) => (
+                                        <span key={j} style={{ marginRight: '10px' }}>{val}</span>
+                                    ))}
+                                </div>
+                            ))}
+                        </div>
+                    )}
                 </div>
             )}
             </div>
