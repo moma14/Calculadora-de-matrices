@@ -319,7 +319,6 @@ const MatrixCalculator: React.FC = () => {
     return (
         <div className="container">
             <p className="container-title">Calculadora de matrices</p>
-
             <div className="gradient-cards">
             <div className="card">             
             <Matrix1x1 
